@@ -247,17 +247,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2209811060488651914}
-  m_LocalRotation: {x: -0, y: -0.9998942, z: -0, w: 0.0145472465}
-  m_LocalPosition: {x: 0, y: 0, z: -0.003}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8682895011898872754}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: -178.333, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.195, y: 1.77}
-  m_SizeDelta: {x: 5.4282, y: 2.3446}
+  m_AnchoredPosition: {x: 0.5318, y: 6.1415}
+  m_SizeDelta: {x: 101.0635, y: 112.2828}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4649657018702522722
 MeshRenderer:
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.32555962, y: 0.8968334, z: 0.055478334, w: 0.450994}
+  m_margin: {x: 17.893242, y: 39.94665, z: 18.245523, w: 51.02013}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -438,6 +438,7 @@ GameObject:
   - component: {fileID: 1667809250573613481}
   - component: {fileID: 5467607561971834588}
   - component: {fileID: 8849623332625084156}
+  - component: {fileID: -4177249331414120019}
   m_Layer: 0
   m_Name: t01_player
   m_TagString: Untagged
@@ -497,8 +498,10 @@ MonoBehaviour:
   orientation: {fileID: 7216583770345767391}
   IsGrounded: 0
   Speed: 0
+  m_sNickName: 
   JumpForce: 0
   rb: {fileID: 0}
+  m_Text: {fileID: 5904039110033446505}
 --- !u!114 &1667809250573613481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,3 +575,17 @@ MonoBehaviour:
   syncAngularVelocity: 1
   clearAngularVelocity: 0
   angularVelocitySensitivity: 0.1
+--- !u!114 &-4177249331414120019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7478219745516944514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae636725b3ce22d48881517b1568ba45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 5904039110033446505}
+  m_Camera: {fileID: 0}

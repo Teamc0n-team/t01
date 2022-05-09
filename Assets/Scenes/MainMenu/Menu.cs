@@ -31,6 +31,7 @@ public class Menu : MonoBehaviour
     {
         NetworkDataHolder.IsHost = false;
         NetworkDataHolder.address = AddressInput.text;
+        NetworkDataHolder.NickName = NickNameInput.text;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

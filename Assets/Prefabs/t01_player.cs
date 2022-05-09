@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using Mirror;
 
 public class t01_player : NetworkBehaviour
 {
+
     [SerializeField]
     private Transform orientation;
 
@@ -16,7 +18,12 @@ public class t01_player : NetworkBehaviour
     float Speed;
 
     [SyncVar]
+    [SerializeField]
     public string m_sNickName;
+
+    [SyncVar]
+    [SerializeField]
+    public string m_sRenderNickName;
 
     [SyncVar]
     [SerializeField]
@@ -25,41 +32,48 @@ public class t01_player : NetworkBehaviour
     [SerializeField]
     private Rigidbody rb;
 
+    [SerializeField]
+    TMPro.TMP_Text m_Text;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
 
-        if (isClient)
+        if (isServer)
         {
-            CmdSendNickName(NetworkDataHolder.NickName);
+            Speed = 4f;
+            m_sRenderNickName = new string(m_sRenderNickName.Reverse().ToArray());
+            JumpForce = 300f;
         }
+
         if (isClient && isLocalPlayer)
         {
             CameraManager.Instance.SetupPlayer(this);
             InputManager.Instance.SetupPlayer(this);
+            
+            CmdSendNickName(NetworkDataHolder.NickName);
         }
 
         IsGrounded = true;
 
-        if (isServer)
-        {
-            Speed = 4f;
 
-            JumpForce = 300f;
-        }
     }
 
+    [Command]
     void CmdSendNickName(string Name)
     {
+        m_sRenderNickName = new string(Name.Reverse().ToArray());
         m_sNickName = Name;
+        m_Text.text = Name;
         RpcSetPlayerName(Name);
     }
 
     [ClientRpc]
     void RpcSetPlayerName(string s)
     {
-        GetComponentInChildren<TextMesh>().text = s;
+        m_Text.text = s;
+        name = s;
     }
 
     // Update is called once per frame
@@ -91,6 +105,11 @@ public class t01_player : NetworkBehaviour
         {
             IsGrounded = State;
         }
+    }
+
+    public void FixedUpdate()
+    {
+        m_Text.text = m_sNickName;
     }
 
     [Command]

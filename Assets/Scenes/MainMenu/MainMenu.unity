@@ -189,6 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_Start: {fileID: 1904501075}
+  NickNameInput: {fileID: 684157510}
+  AddressInput: {fileID: 776339796}
 --- !u!1 &410286861
 GameObject:
   m_ObjectHideFlags: 0
