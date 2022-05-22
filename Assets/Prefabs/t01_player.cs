@@ -10,6 +10,7 @@ public class t01_player : NetworkBehaviour
     [SerializeField]
     private Transform orientation;
 
+    [SyncVar]
     [SerializeField]
     bool IsGrounded = false;
 
@@ -20,10 +21,6 @@ public class t01_player : NetworkBehaviour
     [SyncVar]
     [SerializeField]
     public string m_sNickName;
-
-    [SyncVar]
-    [SerializeField]
-    public string m_sRenderNickName;
 
     [SyncVar]
     [SerializeField]
@@ -42,8 +39,8 @@ public class t01_player : NetworkBehaviour
 
         if (isServer)
         {
+            IsGrounded = false;
             Speed = 4f;
-            m_sRenderNickName = new string(m_sRenderNickName.Reverse().ToArray());
             JumpForce = 300f;
         }
 
@@ -54,16 +51,11 @@ public class t01_player : NetworkBehaviour
             
             CmdSendNickName(NetworkDataHolder.NickName);
         }
-
-        IsGrounded = true;
-
-
     }
 
     [Command]
     void CmdSendNickName(string Name)
     {
-        m_sRenderNickName = new string(Name.Reverse().ToArray());
         m_sNickName = Name;
         m_Text.text = Name;
         RpcSetPlayerName(Name);
@@ -85,6 +77,7 @@ public class t01_player : NetworkBehaviour
             {
                 CmdJump();
                 IsGrounded = false;
+                Debug.Log("jump");
             }
         }
     }
@@ -99,6 +92,7 @@ public class t01_player : NetworkBehaviour
        CmdIsGroundedUpate(collision.gameObject.tag, false);
     }
 
+    [Command]
     public void CmdIsGroundedUpate(string tag, bool State)
     {
         if (tag == "Ground")
@@ -126,7 +120,7 @@ public class t01_player : NetworkBehaviour
         transform.Translate(movement * Speed * Time.deltaTime);
     }
 
-    [Command]
+    //[Command]
     public void CmdJump()
     {
         rb.AddForce(Vector3.up * JumpForce, ForceMode.Acceleration);
