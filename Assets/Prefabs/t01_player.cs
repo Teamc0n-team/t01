@@ -40,7 +40,7 @@ public class t01_player : NetworkBehaviour
         if (isServer)
         {
             IsGrounded = false;
-            Speed = 4f;
+            Speed = 2f;
             JumpForce = 300f;
         }
 
@@ -73,7 +73,7 @@ public class t01_player : NetworkBehaviour
     {
         if (Input.GetAxis("Jump") > 0)
         {
-            if (IsGrounded)
+            if (IsGrounded && isLocalPlayer)
             {
                 CmdJump();
                 IsGrounded = false;
@@ -91,8 +91,7 @@ public class t01_player : NetworkBehaviour
     {
        CmdIsGroundedUpate(collision.gameObject.tag, false);
     }
-
-    [Command]
+    
     public void CmdIsGroundedUpate(string tag, bool State)
     {
         if (tag == "Ground")
@@ -120,7 +119,7 @@ public class t01_player : NetworkBehaviour
         transform.Translate(movement * Speed * Time.deltaTime);
     }
 
-    //[Command]
+    [Command]
     public void CmdJump()
     {
         rb.AddForce(Vector3.up * JumpForce, ForceMode.Acceleration);
