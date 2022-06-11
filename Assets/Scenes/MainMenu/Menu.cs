@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using Mirror;
 public class Menu : MonoBehaviour
 {
     [SerializeField]
     GameObject UI_Start;
 
     [SerializeField]
-    Animation UI_StartExitAnimation;
+    Animator UI_StartExitAnimation;
     
     [SerializeField]
     InputField NickNameInput;
@@ -28,22 +28,32 @@ public class Menu : MonoBehaviour
         IsUI_Start = !IsUI_Start;
         Panel.SetActive(false);
         UI_Start.SetActive(true);
-        //Panel.SetActive(true);
         Debug.Log("::OnStartButton");
-        //ColorBlock m_NewBlock = new ColorBlock();
-        //m_NewBlock.normalColor = Color.black;
-        //StartButton.colors = m_NewBlock;
+
+        GameObject panel_Foo = GameObject.FindGameObjectWithTag("UI_Start");
+        UI_StartExitAnimation = panel_Foo.GetComponent<Animator>();
     }
 
     private void LoadNextScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+    private void DisableStartUI() => UI_Start.SetActive(false);
+
+    public void OnFailed()
+    {
+        Panel.SetActive(true);
+    }
 
     public void OnHostButton()
     {
         NetworkDataHolder.IsHost = true;
         NetworkDataHolder.NickName = NickNameInput.text;
 
-        UI_StartExitAnimation.();
-        Invoke("LoadNextScene", 4.6f);
+        UI_StartExitAnimation.Play("Base Layer.StartUIClose");
+        Invoke("DisableStartUI", 1.6f);
+
+        t01_NetWorkManager.singleton.StartHost();
+
+        //Invoke("LoadNextScene", 1.7f);
     }
 
     public void OnConnectButton()
@@ -52,8 +62,18 @@ public class Menu : MonoBehaviour
         NetworkDataHolder.address = AddressInput.text;
         NetworkDataHolder.NickName = NickNameInput.text;
 
-        UI_StartExitAnimation.Play();
-        Invoke("LoadNextScene", 4.6f);
+        UI_StartExitAnimation.Play("Base Layer.StartUIClose");
+        Invoke("DisableStartUI", 1.6f);
+
+        t01_NetWorkManager.OnDissconnect = OnFailed;
+        t01_NetWorkManager.singleton.networkAddress = NetworkDataHolder.address;
+        t01_NetWorkManager.singleton.StartClient();
+        //Invoke("LoadNextScene", 1.7f);
+    }
+
+    private void Update()
+    {
+
     }
 
     public void OnExitButton()

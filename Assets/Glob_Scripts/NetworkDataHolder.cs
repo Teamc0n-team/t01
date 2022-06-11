@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class NetworkDataHolder
 {
-    public static string address;
-    public static bool IsHost;
-    public static string NickName;
+    public static string address = "_localhost";
+    public static bool IsHost = false;
+    public static string NickName = "NULL";
 }
