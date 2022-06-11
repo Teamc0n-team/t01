@@ -50,6 +50,8 @@ public class t01_player : NetworkBehaviour
             InputManager.Instance.SetupPlayer(this);
             
             CmdSendNickName(NetworkDataHolder.NickName);
+
+            m_Text.enabled = false;
         }
     }
 

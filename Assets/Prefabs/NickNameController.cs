@@ -21,6 +21,6 @@ public class NickNameController : MonoBehaviour
         Vector3 RenderPos = m_Camera.transform.position;
 
         m_Text.transform.LookAt(RenderPos);
-        m_Text.transform.transform.Rotate(new Vector3(0, 180, 0));
+        m_Text.transform.transform.Rotate(new Vector3(50, 180, 0));
     }
 }
